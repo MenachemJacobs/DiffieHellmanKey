@@ -14,13 +14,7 @@ public class Crypto_HW6 {
             }
         }
 
-        if (holder > 1) {
-            areDuplicates = true;
-        } else {
-            areDuplicates = false;
-        }
-
-        return areDuplicates;
+        return (holder > 1);
     }
 
     // Finds all non repeating values for a given modulo, meaing all co primes
