@@ -4,7 +4,6 @@ public class Crypto_HW6 {
 
     // Code looks for duplicate values, which invalidate an alpha candidate
     public static boolean AlphaTester(int i, int input_prime) {
-        boolean areDuplicates;
         int holder = 0;
         int flagValue = BigExponent(i, 1, input_prime);
 
@@ -25,7 +24,7 @@ public class Crypto_HW6 {
             areDuplicates = AlphaTester(i, input_prime);
 
             // if no duplicate values are found by the AlphaTester function,
-            // the alpha candidate is coprime, and added to the array
+            // the alpha candidate is field generating, and added to the array
             if (areDuplicates == false) {
                 returnal.add(i);
             }
