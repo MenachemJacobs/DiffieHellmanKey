@@ -72,40 +72,42 @@ public class Crypto_HW6 {
         return inverse;
     }
 
-    public static void main(String[] args) throws Exception {
-        int prime_p = 31;
-        System.out.print("The public prime is " + prime_p);
+    public static void main(String[] args) {
+        final int PRIME_P = 31;
+        System.out.print("The public prime is " + PRIME_P);
         ArrayList<Integer> alphasList = new ArrayList<Integer>();
 
-        AlphaFinder(prime_p, alphasList);
+        AlphaFinder(PRIME_P, alphasList);
         // alphasList.forEach((n) -> System.out.print(n + " "));
 
-        int alpha = (int) (Math.random() * alphasList.size());
-        alpha = alphasList.get(alpha);
+        // generate a random number within the length of the array, and then assigns the
+        // value at that position to alpha
+        // TODO: impliment random from list function
+        int alpha = alphasList.get((int) (Math.random() * alphasList.size()));
         System.out.println("    Alpha is " + alpha);
 
-        int d = (int) (Math.random() * (prime_p - 2)) + 1;
+        int d = (int) (Math.random() * (PRIME_P - 2)) + 1;
         System.out.println("Bob's secret value d is " + d + "\n");
 
-        int beta = BigExponent(alpha, d, prime_p);
-        System.out.println("Hey Alice! p = " + prime_p + ", alpha = " + alpha + ", beta = " + beta + "\n");
+        int beta = BigExponent(alpha, d, PRIME_P);
+        System.out.println("Hey Alice! p = " + PRIME_P + ", alpha = " + alpha + ", beta = " + beta + "\n");
 
-        int i = (int) (Math.random() * (prime_p - 2)) + 1;
+        int i = (int) (Math.random() * (PRIME_P - 2)) + 1;
         System.out.println("Alice's secret value i is " + i);
 
-        int ke = BigExponent(alpha, i, prime_p);
+        int ke = BigExponent(alpha, i, PRIME_P);
         System.out.print("The ephemeral key is " + ke);
 
-        int km = KmFinder(beta, i, ke, d, prime_p);
+        int km = KmFinder(beta, i, ke, d, PRIME_P);
 
-        int plainText = 26;
-        System.out.print("The plain text = " + plainText);
+        final int PLAIN_TEXT = 26;
+        System.out.print("The plain text = " + PLAIN_TEXT);
 
-        int cypherText = (plainText * km) % prime_p;
+        int cypherText = (PLAIN_TEXT * km) % PRIME_P;
         System.out.println("    The cypher text = " + cypherText);
 
-        int inverse = InverseFinder(km, prime_p);
-        int testHolder = (km * inverse) % prime_p;
+        int inverse = InverseFinder(km, PRIME_P);
+        int testHolder = (km * inverse) % PRIME_P;
 
         if (inverse == 0 || testHolder != 1) {
             System.out.println("Fatal Error: inverse is incorrect");
@@ -116,7 +118,7 @@ public class Crypto_HW6 {
 
         System.out.println("Hey Bob! The cypher text = " + cypherText + ", the ephemeral key = " + ke + "\n");
 
-        int decodedText = (cypherText * inverse) % prime_p;
+        int decodedText = (cypherText * inverse) % PRIME_P;
 
         System.out.println("Hey Alice, did you say " + decodedText + "?");
     }
